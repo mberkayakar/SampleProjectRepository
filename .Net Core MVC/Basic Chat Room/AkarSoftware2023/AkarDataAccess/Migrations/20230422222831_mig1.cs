@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AkarDataAccess.Migrations
 {
-    public partial class mig2 : Migration
+    public partial class mig1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,6 @@ namespace AkarDataAccess.Migrations
                     GroupName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsPublicOrPrivate = table.Column<bool>(type: "bit", nullable: false),
                     MaxUserCount = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true),
                     CreateUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -26,12 +25,50 @@ namespace AkarDataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Groups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreateUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ModDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GecerliFlg = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GroupUser",
+                columns: table => new
+                {
+                    GroupsId = table.Column<int>(type: "int", nullable: false),
+                    MembersListId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GroupUser", x => new { x.GroupsId, x.MembersListId });
                     table.ForeignKey(
-                        name: "FK_Groups_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_GroupUser_Groups_GroupsId",
+                        column: x => x.GroupsId,
+                        principalTable: "Groups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupUser_Users_MembersListId",
+                        column: x => x.MembersListId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,6 +77,7 @@ namespace AkarDataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    OneTimeUsableToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PersonId = table.Column<int>(type: "int", nullable: true),
                     GruoupId = table.Column<int>(type: "int", nullable: true),
                     IsUsed = table.Column<bool>(type: "bit", nullable: false),
@@ -66,24 +104,20 @@ namespace AkarDataAccess.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.UpdateData(
+            migrationBuilder.InsertData(
                 table: "Users",
-                keyColumn: "Id",
-                keyValue: 1,
-                columns: new[] { "CreateDate", "ModDate" },
-                values: new object[] { new DateTime(2023, 4, 20, 18, 49, 32, 674, DateTimeKind.Local).AddTicks(1410), new DateTime(2023, 4, 20, 18, 49, 32, 674, DateTimeKind.Local).AddTicks(4435) });
+                columns: new[] { "Id", "CreateDate", "CreateUser", "GecerliFlg", "ModDate", "ModUser", "Password", "UserName", "UserPhoto" },
+                values: new object[] { 1, new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(3389), "BERKAY AKAR", true, new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(5182), "BERKAY AKAR", "mberkayakar", "mberkayakar", "https://media.licdn.com/dms/image/C4D03AQH0lx3tESYC7w/profile-displayphoto-shrink_800_800/0/1607277130794?e=2147483647&v=beta&t=mWbd1TIxwSp7B_vA_RkHuJi2tvdrMqAj9EvAyIntub0" });
 
-            migrationBuilder.UpdateData(
+            migrationBuilder.InsertData(
                 table: "Users",
-                keyColumn: "Id",
-                keyValue: 2,
-                columns: new[] { "CreateDate", "ModDate" },
-                values: new object[] { new DateTime(2023, 4, 20, 18, 49, 32, 674, DateTimeKind.Local).AddTicks(6306), new DateTime(2023, 4, 20, 18, 49, 32, 674, DateTimeKind.Local).AddTicks(6309) });
+                columns: new[] { "Id", "CreateDate", "CreateUser", "GecerliFlg", "ModDate", "ModUser", "Password", "UserName", "UserPhoto" },
+                values: new object[] { 2, new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(6184), "BERKAY AKAR", true, new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(6187), "BERKAY AKAR", "atelyon", "atelyon", "https://media.licdn.com/dms/image/C4D03AQH0lx3tESYC7w/profile-displayphoto-shrink_800_800/0/1607277130794?e=2147483647&v=beta&t=mWbd1TIxwSp7B_vA_RkHuJi2tvdrMqAj9EvAyIntub0" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Groups_UserId",
-                table: "Groups",
-                column: "UserId");
+                name: "IX_GroupUser_MembersListId",
+                table: "GroupUser",
+                column: "MembersListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tokens_GruoupId",
@@ -99,24 +133,16 @@ namespace AkarDataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "GroupUser");
+
+            migrationBuilder.DropTable(
                 name: "Tokens");
 
             migrationBuilder.DropTable(
                 name: "Groups");
 
-            migrationBuilder.UpdateData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 1,
-                columns: new[] { "CreateDate", "ModDate" },
-                values: new object[] { new DateTime(2023, 4, 20, 14, 52, 47, 301, DateTimeKind.Local).AddTicks(3464), new DateTime(2023, 4, 20, 14, 52, 47, 301, DateTimeKind.Local).AddTicks(5076) });
-
-            migrationBuilder.UpdateData(
-                table: "Users",
-                keyColumn: "Id",
-                keyValue: 2,
-                columns: new[] { "CreateDate", "ModDate" },
-                values: new object[] { new DateTime(2023, 4, 20, 14, 52, 47, 301, DateTimeKind.Local).AddTicks(5929), new DateTime(2023, 4, 20, 14, 52, 47, 301, DateTimeKind.Local).AddTicks(5931) });
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

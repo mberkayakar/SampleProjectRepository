@@ -83,6 +83,9 @@ namespace AkarDataAccess.Migrations
                     b.Property<string>("ModUser")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OneTimeUsableToken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
@@ -134,10 +137,10 @@ namespace AkarDataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2023, 4, 20, 22, 46, 49, 965, DateTimeKind.Local).AddTicks(8153),
+                            CreateDate = new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(3389),
                             CreateUser = "BERKAY AKAR",
                             GecerliFlg = true,
-                            ModDate = new DateTime(2023, 4, 20, 22, 46, 49, 965, DateTimeKind.Local).AddTicks(9902),
+                            ModDate = new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(5182),
                             ModUser = "BERKAY AKAR",
                             Password = "mberkayakar",
                             UserName = "mberkayakar",
@@ -146,10 +149,10 @@ namespace AkarDataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2023, 4, 20, 22, 46, 49, 966, DateTimeKind.Local).AddTicks(2954),
+                            CreateDate = new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(6184),
                             CreateUser = "BERKAY AKAR",
                             GecerliFlg = true,
-                            ModDate = new DateTime(2023, 4, 20, 22, 46, 49, 966, DateTimeKind.Local).AddTicks(2956),
+                            ModDate = new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(6187),
                             ModUser = "BERKAY AKAR",
                             Password = "atelyon",
                             UserName = "atelyon",

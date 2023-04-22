@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AkarDataAccess.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20230420154933_mig2")]
-    partial class mig2
+    [Migration("20230422222831_mig1")]
+    partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,12 +52,7 @@ namespace AkarDataAccess.Migrations
                     b.Property<string>("ModUser")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Groups");
                 });
@@ -88,6 +83,9 @@ namespace AkarDataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ModUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OneTimeUsableToken")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("PersonId")
@@ -141,10 +139,10 @@ namespace AkarDataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2023, 4, 20, 18, 49, 32, 674, DateTimeKind.Local).AddTicks(1410),
+                            CreateDate = new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(3389),
                             CreateUser = "BERKAY AKAR",
                             GecerliFlg = true,
-                            ModDate = new DateTime(2023, 4, 20, 18, 49, 32, 674, DateTimeKind.Local).AddTicks(4435),
+                            ModDate = new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(5182),
                             ModUser = "BERKAY AKAR",
                             Password = "mberkayakar",
                             UserName = "mberkayakar",
@@ -153,10 +151,10 @@ namespace AkarDataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreateDate = new DateTime(2023, 4, 20, 18, 49, 32, 674, DateTimeKind.Local).AddTicks(6306),
+                            CreateDate = new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(6184),
                             CreateUser = "BERKAY AKAR",
                             GecerliFlg = true,
-                            ModDate = new DateTime(2023, 4, 20, 18, 49, 32, 674, DateTimeKind.Local).AddTicks(6309),
+                            ModDate = new DateTime(2023, 4, 23, 1, 28, 31, 116, DateTimeKind.Local).AddTicks(6187),
                             ModUser = "BERKAY AKAR",
                             Password = "atelyon",
                             UserName = "atelyon",
@@ -164,11 +162,19 @@ namespace AkarDataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AkarEntities.Entities.Group", b =>
+            modelBuilder.Entity("GroupUser", b =>
                 {
-                    b.HasOne("AkarEntities.Entities.User", null)
-                        .WithMany("Groups")
-                        .HasForeignKey("UserId");
+                    b.Property<int>("GroupsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MembersListId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GroupsId", "MembersListId");
+
+                    b.HasIndex("MembersListId");
+
+                    b.ToTable("GroupUser");
                 });
 
             modelBuilder.Entity("AkarEntities.Entities.Token", b =>
@@ -186,9 +192,19 @@ namespace AkarDataAccess.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("AkarEntities.Entities.User", b =>
+            modelBuilder.Entity("GroupUser", b =>
                 {
-                    b.Navigation("Groups");
+                    b.HasOne("AkarEntities.Entities.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AkarEntities.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("MembersListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

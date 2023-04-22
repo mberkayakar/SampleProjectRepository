@@ -25,7 +25,7 @@ namespace AkarBusiness.Concrete
             {
                 var sonuc = new ListGroupDto { CreateDate = item.CreateDate, 
                                                CreateUser = item.CreateUser,
-                                               GecerliFlg = item.GecerliFlg,
+                                                GecerliFlg = item.GecerliFlg,
                                                GroupName = item.GroupName,  
                                                MembersList = item.MembersList,
                                                Id = item.Id,

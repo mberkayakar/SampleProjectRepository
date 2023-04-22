@@ -157,3 +157,5 @@ D:\Git Project\SampleProjectRepository\.Net Core MVC\Basic Chat Room\AkarSoftwar
 D:\Git Project\SampleProjectRepository\.Net Core MVC\Basic Chat Room\AkarSoftware2023\AkarUI\obj\Debug\net5.0\Razor\Views\Group\Index.cshtml.g.cs
 D:\Git Project\SampleProjectRepository\.Net Core MVC\Basic Chat Room\AkarSoftware2023\AkarUI\bin\Debug\net5.0\AutoMapper.dll
 D:\Git Project\SampleProjectRepository\.Net Core MVC\Basic Chat Room\AkarSoftware2023\AkarUI\obj\Debug\net5.0\Razor\Views\User\Login.cshtml.g.cs
+D:\Git Project\SampleProjectRepository\.Net Core MVC\Basic Chat Room\AkarSoftware2023\AkarUI\obj\Debug\net5.0\Razor\Views\Group\Detail.cshtml.g.cs
+D:\Git Project\SampleProjectRepository\.Net Core MVC\Basic Chat Room\AkarSoftware2023\AkarUI\obj\Debug\net5.0\Razor\Views\Token\Index.cshtml.g.cs
