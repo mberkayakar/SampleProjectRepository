@@ -15,10 +15,10 @@ namespace AkarDataAccess.Concrete.Repository
         {
             _dbContext = dbContext;
         }
-         
+
         public void Add(T item)
         {
-            _dbContext.Set<T>().Add(item);  
+            _dbContext.Set<T>().Add(item);
         }
 
         public bool ForceDelete(T item)
@@ -41,30 +41,32 @@ namespace AkarDataAccess.Concrete.Repository
 
         public List<T> GetEnum(Expression<Func<T, bool>> where = null, Expression<Func<T, object>>[] include = null)
         {
+
             var model = _dbContext.Set<T>().AsQueryable();
-            if (where != null)
-            {
-                model = model.Where(where);
-            }
-            if (include.Any())
+            if (include != null)
             {
                 foreach (var item in include)
                 {
                     model = model.Include(item);
                 }
             }
+            if (where != null)
+            {
+                model = model.Where(where);
+            }
+      
             return model.ToList();
         }
 
         public T Get(Expression<Func<T, bool>> where = null, Expression<Func<T, object>>[] include = null)
         {
             var model = _dbContext.Set<T>().AsQueryable();
-            
+
             if (where != null)
             {
                 model = model.Where(where);
             }
-            if (include.Any())
+            if (include != null)
             {
                 foreach (var item in include)
                 {
